@@ -14,18 +14,17 @@ const submitForm = () => {
 </script>
 
 <template>
-  <div :class="{ 'form-container': true, loading, error }">
-    <div v-if="error" class="message">{{ error }}</div>
-    <div v-else-if="loading" class="message">Loading...</div>
-    <div v-else class="form">
-      <form
-        class="max-w-md mx-auto my-8 p-6 border rounded-lg shadow-lg"
-        @submit.prevent="submitForm"
-      >
-        <div class="mb-4">
+  <div
+    class="min-h-screen bg-gradient-to-r from-blue-800 to-gray-900 text-white"
+  >
+    <div v-if="error" class="text-red-400">{{ error }}</div>
+    <div v-else-if="loading" class="text-blue-300">Loading...</div>
+    <div v-else class="flex items-center justify-center min-h-screen">
+      <form @submit.prevent="submitForm" class="space-y-6">
+        <div>
           <label
             for="expenseDate"
-            class="block text-sm font-medium text-gray-700"
+            class="block text-sm font-medium text-gray-200"
           >
             Expense Date:
           </label>
@@ -33,14 +32,14 @@ const submitForm = () => {
             type="date"
             id="expenseDate"
             v-model="expenseDate"
-            class="input"
+            class="w-full px-3 py-2 mt-1 bg-gray-700 border bordergray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-gray-300"
           />
         </div>
 
-        <div class="mb-4">
+        <div>
           <label
             for="department"
-            class="block text-sm font-medium text-gray-700"
+            class="block text-sm font-medium text-gray-200"
           >
             Department:
           </label>
@@ -48,7 +47,7 @@ const submitForm = () => {
             type="list"
             id="department"
             v-model="department"
-            class="input"
+            class="w-full px-3 py-2 mt-1 bg-gray-700 border bordergray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 text-white"
           >
             <option value="" disabled>Select a department</option>
             <option v-for="dept in departments" :key="dept.id" :value="dept.id">
@@ -56,35 +55,14 @@ const submitForm = () => {
             </option>
           </select>
         </div>
+
+        <button
+          type="submit"
+          class="w-full px-4 py-2 bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-800"
+        >
+          Submit
+        </button>
       </form>
     </div>
   </div>
 </template>
-
-<style scoped>
-.form-container, .message {
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.form-container {
-  background-color: var(--background-color);
-  color: var(--text-color);
-}
-
-.input {
-  width: 100%;
-  padding: 8px 12px;
-  margin-top: 4px;
-  border: 1px solid var(--border-color);
-  border-radius: 0.375rem; /* 6px */
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.input:focus {
-  outline: none;
-  border-color: var(--focus-ring-color);
-  box-shadow: 0 0 0 3px var(--focus-ring-color);
-}
-</style>
-

@@ -1,9 +1,9 @@
 <script setup>
-import HelloWorld from "./components/HelloWorld.vue";
+import ExpenseForm from "./components/ExpenseForm.vue";
 </script>
 
 <template>
   <div>
-    <p>Hello World</p>
+    <ExpenseForm />
   </div>
 </template>

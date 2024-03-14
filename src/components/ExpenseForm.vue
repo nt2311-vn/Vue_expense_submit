@@ -62,30 +62,13 @@ const submitForm = () => {
 </template>
 
 <style scoped>
-/* Define default light theme colors */
-:root {
-  --background-color: #f3f4f6;
-  --text-color: #1f2937;
-  --border-color: #d1d5db;
-  --focus-ring-color: #6366f1;
-}
-
-/* Define dark theme colors */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background-color: #1f2937;
-    --text-color: #f3f4f6;
-    --border-color: #4b5563;
-    --focus-ring-color: #818cf8;
-  }
+.form-container, .message {
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .form-container {
   background-color: var(--background-color);
   color: var(--text-color);
-  transition:
-    background-color 0.3s,
-    color 0.3s;
 }
 
 .input {
@@ -95,9 +78,7 @@ const submitForm = () => {
   border: 1px solid var(--border-color);
   border-radius: 0.375rem; /* 6px */
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  transition:
-    border-color 0.3s,
-    box-shadow 0.3s;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .input:focus {
@@ -105,11 +86,5 @@ const submitForm = () => {
   border-color: var(--focus-ring-color);
   box-shadow: 0 0 0 3px var(--focus-ring-color);
 }
-
-.label,
-.message {
-  display: block;
-  margin-bottom: 8px;
-  color: var(--text-color);
-}
 </style>
+

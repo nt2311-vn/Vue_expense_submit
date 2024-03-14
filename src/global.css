@@ -1,0 +1,15 @@
+:root {
+  --background-color: #f3f4f6;
+  --text-color: #1f2937;
+  --border-color: #d1d5db;
+  --focus-ring-color: #6366f1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #2f08ad;
+    --text-color: #ffffff;
+    --border-color: #4b5563;
+    --focus-ring-color: #818cf8;
+  }
+}

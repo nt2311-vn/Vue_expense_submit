@@ -20,14 +20,11 @@ const useAuth = () => {
 	 */
 	const requestOTP = async (email) => {
 		try {
+			axios.default.crossorigin = true;
 			const response = await axios.post(
 				"https://5574610.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=1351&deploy=1&compid=5574610&h=bf96464787059818e7be",
-				JSON.stringify({ email }),
-				{
-					headers: {
-						"Content-Type": "application/json",
-					},
-				},
+				{ email: email },
+				{ headers: { "Content-Type": "application/json" } },
 			);
 
 			if (response.data) {

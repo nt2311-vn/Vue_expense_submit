@@ -38,7 +38,7 @@ const handleSubmit = () => {
         <h2
           class="mt-6 text-center text-3xl font-extrabold font-mono text-white"
         >
-          Sign in to your account
+          Sign in with email
         </h2>
       </div>
       <form @submit.prevent="handleSubmit" class="mt-8 space-y-6">
@@ -48,7 +48,7 @@ const handleSubmit = () => {
           autocomplete="email"
           required
           class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-mono"
-          placeholder="Email address"
+          placeholder="Enter your email address here"
         />
 
         <div v-if="otpRequested">

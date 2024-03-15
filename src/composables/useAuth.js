@@ -12,7 +12,6 @@ import axios from "axios";
 const useAuth = () => {
 	const error = ref(null);
 	const loading = ref(false);
-
 	/**
 	 * This is the requestOTP function to send OTP to the email
 	 * @param {string} email - The email to send otpResult
@@ -20,9 +19,10 @@ const useAuth = () => {
 	 */
 	const requestOTP = async (email) => {
 		try {
+			loading.value = true;
 			axios.default.crossorigin = true;
 			const response = await axios.post(
-				"https://5574610.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=1351&deploy=1&compid=5574610&h=bf96464787059818e7be",
+				"/api/app/site/hosting/scriptlet.nl?script=1351&deploy=1&compid=5574610&h=bf96464787059818e7be",
 				{ email: email },
 				{ headers: { "Content-Type": "application/json" } },
 			);

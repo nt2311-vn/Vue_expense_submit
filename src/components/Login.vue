@@ -1,9 +1,14 @@
 <script setup>
 import { ref } from "vue";
+import { useAuth } from "@/composables/useAuth";
 
 const email = ref("");
 const otp = ref("");
 const otpRequested = ref(false);
+
+const { requestOTP, error, loading } = useAuth();
+
+const getOTP = async () => {};
 </script>
 
 <template>

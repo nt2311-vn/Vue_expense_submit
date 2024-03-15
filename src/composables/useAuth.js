@@ -16,13 +16,13 @@ const useAuth = () => {
 	/**
 	 * This is the requestOTP function to send OTP to the email
 	 * @param {string} email - The email to send otpResult
-	 * @returns {Promise<string>} returns the otp text to requester
+	 * @returns {Promise<boolean>} returns whether the OPT has been sent to user or not
 	 */
 	const requestOTP = async (email) => {
 		try {
 			const response = await axios.post(
-				"theurl",
-				{ email: email },
+				"https://5574610.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=1351&deploy=1&compid=5574610&h=bf96464787059818e7be",
+				JSON.stringgify({ email }),
 				{
 					headers: {
 						"Content-Type": "application/json",
@@ -30,9 +30,8 @@ const useAuth = () => {
 				},
 			);
 
-			if (response.status === 201) {
-				const otpText = await response.data;
-				return otpText;
+			if (response.data) {
+				console.log(response.data);
 			}
 		} catch (err) {
 			error.value = err.message;

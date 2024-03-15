@@ -3,9 +3,9 @@ import { ref } from "vue";
 import useAuth from "@/composables/useAuth";
 import Loading from "@/components/Loading.vue";
 import Unauthorized from "@/components/Unauthorized.vue";
+import OTPInput from "@/components/OTPInput.vue";
 
 const email = ref("");
-const otp = ref("");
 const otpRequested = ref(false);
 
 const { requestOTP, error, loading } = useAuth();
@@ -22,6 +22,10 @@ const handleSubmit = () => {
     getOTP();
   }
 };
+
+const handleOTPComplete = async (otp) => {
+  // TODO: Validate OTP
+};
 </script>
 
 <template>
@@ -32,7 +36,7 @@ const handleSubmit = () => {
     v-if="!loading && !error"
   >
     <div
-      class="max-w-md w-full space-y-8 p-10 bg-gray-800 rounded-xl shadow-lg"
+      class="max-w-xl w-full space-y-8 p-10 bg-gray-800 rounded-xl shadow-lg"
     >
       <div>
         <h2
@@ -52,23 +56,14 @@ const handleSubmit = () => {
         />
 
         <div v-if="otpRequested">
-          <input
-            v-model="otp"
-            type="text"
-            required
-            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-            placeholder="OTP"
-          />
+          <OTPInput @complete="handleOTPComplete" />
         </div>
 
-        <div>
-          <button
-            type="submit"
-            class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          >
-            Sign in
-          </button>
-        </div>
+        <button
+          type="submit"
+          class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          v-text="otpRequested ? 'Verify OTP' : 'Get OTP'"
+        />
       </form>
     </div>
   </div>

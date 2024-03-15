@@ -32,9 +32,11 @@ const useAuth = () => {
 
 			if (response.data) {
 				console.log(response.data);
+				return true;
 			}
 		} catch (err) {
 			error.value = err.message;
+			return false;
 		} finally {
 			loading.value = false;
 		}

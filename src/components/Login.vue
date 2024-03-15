@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from "vue";
 import { useAuth } from "@/composables/useAuth";
+import Loading from "@/components/Loading.vue";
+import Unauthorized from "@/components/Unauthorized.vue";
 
 const email = ref("");
 const otp = ref("");
@@ -8,10 +10,24 @@ const otpRequested = ref(false);
 
 const { requestOTP, error, loading } = useAuth();
 
-const getOTP = async () => {};
+const getOTP = async () => {
+  if (email.value && !otpRequested.value) {
+    if (await requestOTP(email.value)) {
+      otpRequested.value = true;
+    }
+  }
+};
+
+const handleSubmit = () => {
+  if (!otpRequested.value) {
+    getOTP();
+  }
+};
 </script>
 
 <template>
+  <!-- <Loading v-if="loading" /> -->
+  <!-- <Unauthorized v-if="error" /> -->
   <div
     class="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-800 to-gray-900 text-white"
   >
@@ -25,7 +41,7 @@ const getOTP = async () => {};
           Sign in to your account
         </h2>
       </div>
-      <form @submit.prevent="requestOtp" class="mt-8 space-y-6">
+      <form @submit.prevent="handleSubmit" class="mt-8 space-y-6">
         <input
           v-model="email"
           type="email"

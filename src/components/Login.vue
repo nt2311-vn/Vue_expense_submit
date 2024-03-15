@@ -1,3 +1,11 @@
+<script setup>
+import { ref } from "vue";
+
+const email = ref("");
+const otp = ref("");
+const otpRequested = ref(false);
+</script>
+
 <template>
   <div
     class="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-800 to-gray-900 text-white"
@@ -44,11 +52,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref } from "vue";
-
-const email = ref("");
-const otp = ref("");
-const otpRequested = ref(false);
-</script>

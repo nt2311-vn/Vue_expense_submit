@@ -7,6 +7,6 @@ import Loading from "@/components/Loading.vue";
 
 <template>
   <div>
-    <ExpenseForm />
+    <Login />
   </div>
 </template>

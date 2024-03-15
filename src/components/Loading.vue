@@ -50,7 +50,7 @@ const items = [
   {
     gradient: "bg-gradient-to-r from-orange-900 via-red-800 to-yellow-900",
     animation: "slither",
-    icon: "🪱",
+    icon: "🐍",
     phrase: "Riding sandworm to attack Harkonen...",
   },
   {
@@ -163,15 +163,14 @@ onMounted(() => {
   50% {
     transform: translateX(20px);
   }
-
-  @keyframes breathe {
-    0%,
-    100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.1);
-    }
+}
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
   }
 }
 </style>

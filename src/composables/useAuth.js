@@ -11,7 +11,7 @@ import axios from "axios";
  */
 const useAuth = () => {
 	const error = ref(null);
-	const loading = ref(true);
+	const loading = ref(false);
 
 	/**
 	 * This is the requestOTP function to send OTP to the email
@@ -22,7 +22,7 @@ const useAuth = () => {
 		try {
 			const response = await axios.post(
 				"https://5574610.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=1351&deploy=1&compid=5574610&h=bf96464787059818e7be",
-				JSON.stringgify({ email }),
+				JSON.stringify({ email }),
 				{
 					headers: {
 						"Content-Type": "application/json",
@@ -44,3 +44,5 @@ const useAuth = () => {
 
 	return { error, loading, requestOTP };
 };
+
+export default useAuth;

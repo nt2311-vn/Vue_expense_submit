@@ -29,42 +29,68 @@ const handleOTPComplete = async (otp) => {
 </script>
 
 <template>
-  <Loading v-if="loading" />
-  <Unauthorized v-if="error" />
   <div
-    class="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-800 to-gray-900 text-white"
-    v-if="!loading && !error"
+    class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-bl from-blue-800 to-blue-600 text-white"
   >
-    <div
-      class="max-w-xl w-full space-y-8 p-10 bg-gray-800 rounded-xl shadow-lg"
-    >
-      <div>
-        <h2
-          class="mt-6 text-center text-3xl font-extrabold font-mono text-white"
+    <div class="w-full max-w-md mx-auto">
+      <transition name="fade" mode="out-in">
+        <div
+          v-if="!loading && !error"
+          key="email-or-otp"
+          class="w-full max-w-md px-8 py-6 bg-gray-800 rounded-lg shadow-md"
         >
-          Sign in with email
-        </h2>
-      </div>
-      <form @submit.prevent="handleSubmit" class="mt-8 space-y-6">
-        <input
-          v-model="email"
-          type="email"
-          autocomplete="email"
-          required
-          class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-mono"
-          placeholder="Enter your email address here"
-        />
+          <h2
+            class="mt-6 text-center text-3xl font-extrabold font-mono text-white"
+          >
+            Sign in with email
+          </h2>
+          <form @submit.prevent="handleSubmit" class="mt-8 space-y-6">
+            <input
+              v-if="!otpRequested"
+              v-model="email"
+              type="email"
+              autocomplete="email"
+              required
+              class="w-full px-4 py-2 text-gray-900 rounded-md focus:ring-blue-500 font-mono font-extrabold"
+              placeholder="Enter your email address here"
+            />
 
-        <div v-if="otpRequested">
-          <OTPInput @complete="handleOTPComplete" />
+            <div v-else>
+              <OTPInput @complete="handleOTPComplete" class="mt-4" />
+            </div>
+
+            <button
+              type="submit"
+              class="w-full py-3 mt-4 bg-blue-600 rounded-md font-mono font-extrabold text-lg text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              v-text="otpRequested ? 'Verify OTP' : 'Get OTP'"
+            />
+          </form>
         </div>
-
-        <button
-          type="submit"
-          class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          v-text="otpRequested ? 'Verify OTP' : 'Get OTP'"
-        />
-      </form>
+        <Loading v-else-if="loading" />
+        <Unauthorized v-else-if="error" />
+      </transition>
     </div>
   </div>
 </template>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* Slide and fade transitions for the form */
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateY(10px);
+  opacity: 0;
+}
+</style>

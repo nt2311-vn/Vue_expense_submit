@@ -36,7 +36,7 @@ const handleOTPComplete = async (otp) => {
       v-if="!loading && !error"
       class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-bl from-blue-800 to-blue-600 text-white"
     >
-      <div class="w-full max-w-md mx-auto">
+      <div class="w-full max-w-xl mx-auto flex items-center">
         <div
           key="email-or-otp"
           class="w-full max-w-xl px-8 py-6 bg-gray-800 rounded-lg shadow-md"
@@ -44,7 +44,7 @@ const handleOTPComplete = async (otp) => {
           <h2
             class="mt-6 text-center text-3xl font-extrabold font-mono text-white"
           >
-            Sign in with email
+            {{ otpRequested ? "Input OTP" : "Sign in with email" }}
           </h2>
           <form @submit.prevent="handleSubmit" class="mt-8 space-y-6">
             <input

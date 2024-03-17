@@ -4,7 +4,7 @@ import { ref, reactive, onMounted } from "vue";
 const props = defineProps({
   length: {
     type: Number,
-    default: 10,
+    default: 8,
   },
 });
 

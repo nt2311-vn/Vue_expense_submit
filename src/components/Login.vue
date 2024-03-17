@@ -7,24 +7,28 @@ import OTPInput from "@/components/OTPInput.vue";
 
 const email = ref("");
 const otpRequested = ref(false);
+const employee = ref(null);
 
-const { requestOTP, error, loading } = useAuth();
+const { requestOTP, validateOTP, error, loading } = useAuth();
 
 const getOTP = async () => {
   if (email.value && !otpRequested.value) {
-    const isOTPSent = await requestOTP(email.value);
-    otpRequested.value = isOTPSent;
-  }
-};
-
-const handleSubmit = () => {
-  if (!otpRequested.value) {
-    getOTP();
+    const employeeId = await requestOTP(email.value);
+    if (employeeId) {
+      otpRequested.value = isOTPSent;
+      employee.value = employeeId;
+    }
   }
 };
 
 const handleOTPComplete = async (otp) => {
-  // TODO: Validate OTP
+  if (otp) {
+    const isVerified = await validateOTP(otp, employee.value);
+
+    if (isVerified) {
+      // TODO: Navigate user to the dashboard for creating tasks
+    }
+  }
 };
 </script>
 
@@ -46,7 +50,7 @@ const handleOTPComplete = async (otp) => {
           >
             {{ otpRequested ? "Input OTP" : "Sign in with email" }}
           </h2>
-          <form @submit.prevent="handleSubmit" class="mt-8 space-y-6">
+          <form @submit.prevent="getOTP" class="mt-8 space-y-6">
             <input
               v-if="!otpRequested"
               v-model="email"

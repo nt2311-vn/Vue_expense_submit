@@ -15,7 +15,7 @@ const useAuth = () => {
 	/**
 	 * This is the requestOTP function to send OTP to the email
 	 * @param {string} email - The email to send otpResult
-	 * @returns {Promise<boolean>} returns whether the OPT has been sent to user or not
+	 * @returns {Promise<number | null>} returns the employee id if that email has been sent to
 	 */
 	const requestOTP = async (email) => {
 		try {
@@ -28,7 +28,7 @@ const useAuth = () => {
 			);
 
 			if (response.data.success) {
-				return true;
+				return response.data.employeeId;
 			}
 			throw new Error("Your email is not within organization.");
 		} catch (err) {
@@ -39,7 +39,15 @@ const useAuth = () => {
 		}
 	};
 
-	return { error, loading, requestOTP };
+	/**
+	 * Validate the OTP input
+	 * @param {string} otpInput - The OTP input from users
+	 * @param {number} employeeId - The employee id of netsuite
+	 * @returns {Promise<boolean>} returns whether the OTP is valid or not
+	 */
+	const validateOTP = async (otpInput, employeeId) => {};
+
+	return { error, loading, requestOTP, validateOTP };
 };
 
 export default useAuth;

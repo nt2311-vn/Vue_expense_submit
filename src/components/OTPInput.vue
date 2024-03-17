@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, onMounted } from "vue";
+import { ref } from "vue";
 
 const props = defineProps({
   length: {
@@ -9,63 +9,11 @@ const props = defineProps({
 });
 
 const emmit = defineEmits(["complete"]);
-const otpArr = reactive(Array.from({ length: props.length }, () => ""));
-const otpInputs = ref([]);
+const internalOTP = ref("");
 
-onMounted(() => {
-  otpInputs.value = otpInputs.value.slice(0, props.length);
-});
-
-const handleInput = (index) => {
-  if (index < props.length - 1 && otpArr[index]) {
-    otpInputs.value[index + 1].focus();
-  }
-
-  if (otpArr.every((char) => char.length === 1)) {
-    emmit("complete", otpArr.join(""));
-  }
-};
-
-const handleKeyDown = (event, index) => {
-  if (event.key === "Backspace") {
-    handleBackSpace(event, index);
-  } else if (event.key.length === 1) {
-    if (otpArr[index].length >= 1) {
-      event.preventDefault();
-    } else {
-      Vue.nextTick(() => {
-        if (index < props.length - 1) {
-          otpInputs.value[index + 1].focus();
-        }
-      });
-    }
-  }
-};
-
-const handleBackSpace = (event, index) => {
-  if (event.key === "Backspace" && !otpArr[index] && index > 0) {
-    event.preventDefault();
-    otpInputs.value[index - 1].focus();
-    otpArr[index - 1] = "";
-  }
-};
-
-const handlePaste = (event) => {
-  event.preventDefault();
-
-  const pasteData = event.clipboardDate.getData("text").slice(0, props.length);
-
-  otpArr.forEach((_, i) => {
-    otpArr[i] = pasteData[i] || "";
-  });
-
-  otpInputs.value.forEach((input, i) => {
-    if (otpArr[i]) {
-      input.focus();
-    }
-  });
-  if (otpArr.every((char) => char.length === 1)) {
-    emmit("complete", otpArr.join(""));
+const checkOTPComplete = () => {
+  if (internalOTP.value.length === props.length) {
+    emmit("complete", internalOTP.value);
   }
 };
 </script>
@@ -73,45 +21,28 @@ const handlePaste = (event) => {
 <template>
   <div class="otp-inputs">
     <input
-      v-for="(input, index) in otpArr"
-      :key="index"
-      class="otp-input"
+      v-model="internalOTP"
       type="text"
-      maxlength="1"
-      v-model="otpArr[index]"
-      @input="() => handleInput(index)"
-      @paste.prevent="handlePaste"
-      @keydown="(event) => handleKeydown(event, index)"
-      ref="otpInputs"
+      @input="checkOTPComplete"
+      class="otp-input"
+      maxlength="8"
       autocomplete="one-time-code"
     />
   </div>
 </template>
 
 <style scoped>
-otp-inputs {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  width: auto;
-  min-width: 620px;
-}
-
 .otp-input {
-  width: 33px;
-  height: 33px;
-  margin: 0.5rem;
-  background-color: #203a43;
-  color: white;
-  border: 1px solid #2c5364;
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin: 0.25rem 0;
+  background-color: #f3f3f3;
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+  color: #333;
   text-align: center;
-  font-size: 1.5rem;
-  border-radius: 5px;
   outline: none;
-}
-
-.otp-input:focus {
-  border-color: #3a9fd9;
-  box-shadow: 0 0 5px rgba(58, 159, 217, 0.5);
+  box-shadow: 0 0 0 2px #a4c9f3;
 }
 </style>

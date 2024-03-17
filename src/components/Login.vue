@@ -36,7 +36,7 @@ const handleOTPComplete = async (otp) => {
       v-if="!loading && !error"
       class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-bl from-blue-800 to-blue-600 text-white"
     >
-      <div class="w-full max-w-xl mx-auto flex">
+      <div class="w-full max-w-xl mx-auto">
         <div
           key="email-or-otp"
           class="w-full max-w-xl px-8 py-6 bg-gray-800 rounded-lg shadow-md"

@@ -12,11 +12,11 @@ const emmit = defineEmits(["complete"]);
 const otpArr = reactive(Array.from({ length: props.length }, () => ""));
 const otpInputs = ref([]);
 
-const handleInput = (index, $event) => {
-  const inputChar = $event.data ? $event.data[0] : "";
+onMounted(() => {
+  otpInputs.value = otpInputs.value.slice(0, props.length);
+});
 
-  otpArr[index] = inputChar;
-
+const handleInput = (index) => {
   if (index < props.length - 1 && otpArr[index]) {
     otpInputs.value[index + 1].focus();
   }
@@ -26,12 +26,20 @@ const handleInput = (index, $event) => {
   }
 };
 
+const handleKeyDown = (event, index) => {
+  if (event.key.length === 1 && otpArr[index].length >= 1) {
+    event.preventDefault();
+  } else if (event.key === "Backspace") {
+    if (otpArr[index].length === 0 && index > 0) {
+      otpInputs.value[index - 1].focus();
+    }
+  }
+};
+
 const handlePaste = (event) => {
   event.preventDefault();
 
-  const pasteData = event.clipboardData
-    ? event.clipboardDate.getDate("text").slice(0, props.length)
-    : "";
+  const pasteData = event.clipboardDate.getData("text").slice(0, props.length);
 
   pasteData.split("").forEach((c, i) => {
     otpArr[i] = c;
@@ -46,16 +54,6 @@ const handlePaste = (event) => {
     emmit("complete", otpArr.join(""));
   }
 };
-
-const handleBackSpace = (event, index) => {
-  if (event.key === "Backspace" && !otpArr[index]) {
-    const previousIndex = index - 1;
-
-    if (previousIndex >= 0) {
-      otpInputs.value[previousIndex].focus();
-    }
-  }
-};
 </script>
 
 <template>
@@ -67,9 +65,9 @@ const handleBackSpace = (event, index) => {
       type="text"
       maxlength="1"
       v-model="otpArr[index]"
-      @input="($event) => handleInput(index, $event)"
+      @input="() => handleInput(index)"
       @paste.prevent="handlePaste"
-      @keydown="(event) => handleBackSpace(event, index)"
+      @keydown="(event) => handleKeydown(event, index)"
       ref="otpInputs"
       autocomplete="one-time-code"
     />
@@ -79,9 +77,8 @@ const handleBackSpace = (event, index) => {
 <style scoped>
 otp-inputs {
   display: flex;
-  justify-content: center;
   gap: 10px;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   width: auto;
   min-width: 620px;
 }

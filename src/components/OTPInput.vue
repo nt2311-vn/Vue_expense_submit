@@ -27,12 +27,26 @@ const handleInput = (index) => {
 };
 
 const handleKeyDown = (event, index) => {
-  if (event.key.length === 1 && otpArr[index].length >= 1) {
-    event.preventDefault();
-  } else if (event.key === "Backspace") {
-    if (otpArr[index].length === 0 && index > 0) {
-      otpInputs.value[index - 1].focus();
+  if (event.key === "Backspace") {
+    handleBackSpace(event, index);
+  } else if (event.key.length === 1) {
+    if (otpArr[index].length >= 1) {
+      event.preventDefault();
+    } else {
+      Vue.nextTick(() => {
+        if (index < props.length - 1) {
+          otpInputs.value[index + 1].focus();
+        }
+      });
     }
+  }
+};
+
+const handleBackSpace = (event, index) => {
+  if (event.key === "Backspace" && !otpArr[index] && index > 0) {
+    event.preventDefault();
+    otpInputs.value[index - 1].focus();
+    otpArr[index - 1] = "";
   }
 };
 
@@ -41,16 +55,16 @@ const handlePaste = (event) => {
 
   const pasteData = event.clipboardDate.getData("text").slice(0, props.length);
 
-  pasteData.split("").forEach((c, i) => {
-    otpArr[i] = c;
+  otpArr.forEach((_, i) => {
+    otpArr[i] = pasteData[i] || "";
   });
 
-  const nextIndexFocus =
-    pasteData.length < props.length ? pasteData.length : null;
-
-  if (nextIndexFocus !== null) {
-    otpInputs.value[nextIndexFocus].$el.focus();
-  } else {
+  otpInputs.value.forEach((input, i) => {
+    if (otpArr[i]) {
+      input.focus();
+    }
+  });
+  if (otpArr.every((char) => char.length === 1)) {
     emmit("complete", otpArr.join(""));
   }
 };

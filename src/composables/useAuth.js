@@ -45,7 +45,28 @@ const useAuth = () => {
 	 * @param {number} employeeId - The employee id of netsuite
 	 * @returns {Promise<boolean>} returns whether the OTP is valid or not
 	 */
-	const validateOTP = async (otpInput, employeeId) => {};
+	const validateOTP = async (otpInput, employeeId) => {
+		try {
+			loading.value = true;
+			axios.default.crossorigin = true;
+
+			const response = await axios.post(
+				"todo: url for validate otp",
+				{ otp: otpInput, employee: employeeId },
+				{ headers: { "Content-Type": "application/json" } },
+			);
+
+			if (response.data.success) {
+				return true;
+			}
+
+			throw new Error("You have entered the wrong OTP. Please try again.");
+		} catch (err) {
+			error.value = err.message;
+		} finally {
+			loading.value = false;
+		}
+	};
 
 	return { error, loading, requestOTP, validateOTP };
 };

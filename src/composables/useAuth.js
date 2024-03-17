@@ -27,10 +27,10 @@ const useAuth = () => {
 				{ headers: { "Content-Type": "application/json" } },
 			);
 
-			if (response.data) {
-				console.log(response.data);
+			if (response.data.success) {
 				return true;
 			}
+			throw new Error("Your email is not within organization.");
 		} catch (err) {
 			error.value = err.message;
 			return false;

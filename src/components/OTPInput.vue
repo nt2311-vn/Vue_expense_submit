@@ -46,6 +46,16 @@ const handlePaste = (event) => {
     emmit("complete", otpArr.join(""));
   }
 };
+
+const handleBackSpace = (event, index) => {
+  if (event.key === "Backspace" && !otpArr[index]) {
+    const previousIndex = index - 1;
+
+    if (previousIndex >= 0) {
+      otpInputs.value[previousIndex].focus();
+    }
+  }
+};
 </script>
 
 <template>
@@ -59,6 +69,7 @@ const handlePaste = (event) => {
       v-model="otpArr[index]"
       @input="() => handleInput(index)"
       @paste.prevent="handlePaste"
+      @keydown="(event) => handleBackSpace(event, index)"
       ref="otpInputs"
       autocomplete="one-time-code"
     />

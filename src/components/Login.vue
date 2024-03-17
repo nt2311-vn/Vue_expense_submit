@@ -31,15 +31,15 @@ const handleOTPComplete = async (otp) => {
 <template>
   <Loading v-if="loading" />
   <Unauthorized v-if="error" />
-  <div
-    v-if="!loading && !error"
-    class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-bl from-blue-800 to-blue-600 text-white"
-  >
-    <div class="w-full max-w-md mx-auto">
-      <transition name="fade" mode="out-in">
+  <transition name="fade" mode="out-in">
+    <div
+      v-if="!loading && !error"
+      class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-bl from-blue-800 to-blue-600 text-white"
+    >
+      <div class="w-full max-w-md mx-auto">
         <div
           key="email-or-otp"
-          class="w-full max-w-md px-8 py-6 bg-gray-800 rounded-lg shadow-md"
+          class="w-full max-w-xl px-8 py-6 bg-gray-800 rounded-lg shadow-md"
         >
           <h2
             class="mt-6 text-center text-3xl font-extrabold font-mono text-white"
@@ -58,7 +58,7 @@ const handleOTPComplete = async (otp) => {
             />
 
             <div v-else>
-              <OTPInput @complete="handleOTPComplete" class="mt-4" />
+              <OTPInput @complete="handleOTPComplete" />
             </div>
 
             <button
@@ -68,9 +68,9 @@ const handleOTPComplete = async (otp) => {
             />
           </form>
         </div>
-      </transition>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <style>

@@ -12,10 +12,10 @@ const emmit = defineEmits(["complete"]);
 const otpArr = reactive(Array.from({ length: props.length }, () => ""));
 const otpInputs = ref([]);
 
-const handleInput = (index) => {
-  if (otpArr[index].length > 1) {
-    otpArr[index] = otpArr[index][0] || "";
-  }
+const handleInput = (index, $event) => {
+  const inputChar = $event.data ? $event.data[0] : "";
+
+  otpArr[index] = inputChar;
 
   if (index < props.length - 1 && otpArr[index]) {
     otpInputs.value[index + 1].focus();
@@ -67,7 +67,7 @@ const handleBackSpace = (event, index) => {
       type="text"
       maxlength="1"
       v-model="otpArr[index]"
-      @input="() => handleInput(index)"
+      @input="($event) => handleInput(index, $event)"
       @paste.prevent="handlePaste"
       @keydown="(event) => handleBackSpace(event, index)"
       ref="otpInputs"
@@ -81,6 +81,9 @@ otp-inputs {
   display: flex;
   justify-content: center;
   gap: 10px;
+  flex-wrap: nowrap;
+  width: auto;
+  min-width: 620px;
 }
 
 .otp-input {

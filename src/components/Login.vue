@@ -62,9 +62,10 @@ const handleOTPComplete = async (otp) => {
             </div>
 
             <button
+              v-if="!otpRequested"
               type="submit"
               class="w-full py-3 mt-4 bg-blue-600 rounded-md font-mono font-extrabold text-lg text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-              v-text="otpRequested ? 'Verify OTP' : 'Get OTP'"
+              v-text="'Get OTP'"
             />
           </form>
         </div>

@@ -27,6 +27,7 @@ const checkOTPComplete = () => {
       class="otp-input"
       maxlength="8"
       autocomplete="one-time-code"
+      placeholder="Input or paste OTP here"
     />
   </div>
 </template>
@@ -34,15 +35,28 @@ const checkOTPComplete = () => {
 <style scoped>
 .otp-input {
   width: 100%;
-  padding: 0.5rem;
-  font-size: 1rem;
-  margin: 0.25rem 0;
-  background-color: #f3f3f3;
-  border: 1px solid #d1d1d1;
-  border-radius: 4px;
-  color: #333;
+  padding: 10px 15px;
   text-align: center;
-  outline: none;
-  box-shadow: 0 0 0 2px #a4c9f3;
+
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333333;
+
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
+}
+
+.otp-input:focus {
+  border-color: #0066cc;
+  box-shadow: 0 0 0 3px rgba(77, 144, 254, 0.2);
+}
+
+.otp-input::placeholder {
+  color: #cccccc;
 }
 </style>

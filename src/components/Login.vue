@@ -15,7 +15,7 @@ const getOTP = async () => {
   if (email.value && !otpRequested.value) {
     const employeeId = await requestOTP(email.value);
     if (employeeId) {
-      otpRequested.value = isOTPSent;
+      otpRequested.value = true;
       employee.value = employeeId;
     }
   }
@@ -47,9 +47,16 @@ const handleOTPComplete = async (otp) => {
         >
           <h2
             class="mt-6 text-center text-3xl font-extrabold font-mono text-white"
+            v-if="!otpRequested"
           >
-            {{ otpRequested ? "Input OTP" : "Sign in with email" }}
+            Sign in with email
           </h2>
+          <img
+            v-else
+            src="https://5574610.app.netsuite.com/core/media/media.nl?id=719688&c=5574610&h=PIq0UZivPB4mnJ_5kg2j0flA4ee4dsdxKsRO_foVkcYBfq2s"
+            class="max-w-52 max-h-16 mb-5 mx-auto rounded-md shadow-md"
+            alt="Company Logo"
+          />
           <form @submit.prevent="getOTP" class="mt-8 space-y-6">
             <input
               v-if="!otpRequested"

@@ -47,16 +47,21 @@ const useAuth = () => {
 	 * Validate the OTP input
 	 * @param {string} otpInput - The OTP input from users
 	 * @param {number} employeeId - The employee id of netsuite
+	 * @param {string} submitTimeStamp - The submit time stamp of the OTP
 	 * @returns {Promise<boolean>} returns whether the OTP is valid or not
 	 */
-	const validateOTP = async (otpInput, employeeId) => {
+	const validateOTP = async (otpInput, employeeId, submitTimeStamp) => {
 		try {
 			loading.value = true;
 			axios.default.crossorigin = true;
 
 			const response = await axios.post(
 				"todo: url for validate otp",
-				{ otp: otpInput, employee: employeeId },
+				{
+					otp: otpInput,
+					employee: employeeId,
+					sumbmitTimeStr: submitTimeStamp,
+				},
 				{ headers: { "Content-Type": "application/json" } },
 			);
 

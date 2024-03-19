@@ -28,7 +28,7 @@ const useAuth = () => {
 			);
 
 			if (response.data.success) {
-				return response.data.employeeId;
+				return response.data;
 			}
 			throw new Error("Your email is not within organization.");
 		} catch (err) {

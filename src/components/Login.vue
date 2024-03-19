@@ -36,7 +36,7 @@ const handleOTPComplete = async (otp) => {
 
 <template>
   <Loading v-if="loading" />
-  <Unauthorized v-if="error" :error="error.message" />
+  <Unauthorized v-if="error" :error="error" />
   <transition name="fade" mode="out-in">
     <div
       v-if="!loading && !error"

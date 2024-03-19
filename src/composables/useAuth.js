@@ -30,13 +30,17 @@ const useAuth = () => {
 			if (response.data.success) {
 				return response.data;
 			}
-			throw new Error("Your email is not within organization.");
+
+			const { error: errorMsg } = response.data;
+			throw new Error(errorMsg);
 		} catch (err) {
 			error.value = err.message;
 			return false;
 		} finally {
 			loading.value = false;
 		}
+
+		return null;
 	};
 
 	/**

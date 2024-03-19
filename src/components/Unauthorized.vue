@@ -1,9 +1,14 @@
+<script setup>
+const props = defineProps({
+  error: String,
+});
+</script>
 <template>
   <div class="min-h-screen flex items-center justify-center bg-gradient">
     <div class="text-center">
       <h1 class="text-white text-3xl font-bold font-mono">Access Denied</h1>
       <p class="text-white mt-2 text-xl font-medium font-mono">
-        You do not have the necessary permissions to access this page.
+        {{ props.error }}
       </p>
     </div>
   </div>

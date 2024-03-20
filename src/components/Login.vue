@@ -9,8 +9,9 @@ const email = ref("");
 const otpRequested = ref(false);
 const employee = ref(null);
 const inputMessage = ref("");
+const errorMsg = ref("");
 
-const { requestOTP, validateOTP, error, loading } = useAuth();
+const { requestOTP, validateOTP, error, loading, inputError } = useAuth();
 
 const getOTP = async () => {
   if (email.value && !otpRequested.value) {
@@ -25,10 +26,16 @@ const getOTP = async () => {
 
 const handleOTPComplete = async (otp) => {
   if (otp) {
-    const isVerified = await validateOTP(otp, employee.value);
+    const isVerified = await validateOTP(
+      otp,
+      employee.value,
+      new Date().toISOString(),
+    );
 
     if (isVerified) {
-      // TODO: Navigate user to the dashboard for creating tasks
+      // TODO: redirect to dashboard
+    } else {
+      errorMsg.value = inputError;
     }
   }
 };
@@ -75,7 +82,10 @@ const handleOTPComplete = async (otp) => {
                 class="text-center text-lg font-mono font-bold"
                 v-text="inputMessage"
               />
-              <OTPInput @complete="handleOTPComplete" />
+              <OTPInput
+                @complete="handleOTPComplete"
+                :errorMessage="errorMsg"
+              />
             </div>
 
             <button

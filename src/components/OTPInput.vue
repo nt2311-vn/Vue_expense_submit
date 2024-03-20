@@ -8,7 +8,7 @@ const props = defineProps({
   },
   errorMessage: {
     type: String,
-    default: `You must enter ${props.length} characters`,
+    default: `You must enter 8 characters`,
   },
 });
 

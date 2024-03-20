@@ -12,6 +12,7 @@ import axios from "axios";
 const useAuth = () => {
 	const error = ref(null);
 	const loading = ref(false);
+	const inputError = ref(null);
 	/**
 	 * This is the requestOTP function to send OTP to the email
 	 * @param {string} email - The email to send otpResult
@@ -56,7 +57,7 @@ const useAuth = () => {
 			axios.default.crossorigin = true;
 
 			const response = await axios.post(
-				"todo: url for validate otp",
+				"https://5574610.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=1354&deploy=1&compid=5574610&h=ec8dbbe9edfa988b85e7",
 				{
 					otp: otpInput,
 					employee: employeeId,
@@ -68,16 +69,14 @@ const useAuth = () => {
 			if (response.data.success) {
 				return true;
 			}
-
-			throw new Error("You have entered the wrong OTP. Please try again.");
 		} catch (err) {
-			error.value = err.message;
+			inputError.value = err.message;
 		} finally {
 			loading.value = false;
 		}
 	};
 
-	return { error, loading, requestOTP, validateOTP };
+	return { error, loading, inputError, requestOTP, validateOTP };
 };
 
 export default useAuth;

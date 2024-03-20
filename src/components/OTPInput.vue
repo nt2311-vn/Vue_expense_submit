@@ -6,20 +6,27 @@ const props = defineProps({
     type: Number,
     default: 8,
   },
+  errorMessage: {
+    type: String,
+    default: `You must enter ${props.length} characters`,
+  },
 });
 
-const emmit = defineEmits(["complete"]);
+const emmit = defineEmits(["complete", "error"]);
 const internalOTP = ref("");
 
 const checkOTPComplete = () => {
   if (internalOTP.value.length === props.length) {
     emmit("complete", internalOTP.value);
+  } else {
+    emmit("error", `You must input ${props.length} characters`);
   }
 };
 </script>
 
 <template>
   <div class="otp-inputs">
+    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
     <input
       v-model="internalOTP"
       type="text"
@@ -58,5 +65,18 @@ const checkOTPComplete = () => {
 
 .otp-input::placeholder {
   color: #cccccc;
+}
+
+.error-message {
+  color: #ff4757;
+  background-color: #fff3f2;
+  border-left: 5px solid #ff4757;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+  font-size: 0.9rem;
 }
 </style>

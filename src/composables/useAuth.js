@@ -47,11 +47,11 @@ const useAuth = () => {
 	/**
 	 * Validate the OTP input
 	 * @param {string} otpInput - The OTP input from users
-	 * @param {number} employeeId - The employee id of netsuite
+	 * @param {number} otpId - The employee id of netsuite
 	 * @param {string} submitTimeStamp - The submit time stamp of the OTP
 	 * @returns {Promise<boolean>} returns whether the OTP is valid or not
 	 */
-	const validateOTP = async (otpInput, employeeId, submitTimeStamp) => {
+	const validateOTP = async (otpInput, otpId, submitTimeStamp) => {
 		try {
 			loading.value = true;
 			axios.default.crossorigin = true;
@@ -60,7 +60,7 @@ const useAuth = () => {
 				"https://5574610.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=1354&deploy=1&compid=5574610&h=ec8dbbe9edfa988b85e7",
 				{
 					otp: otpInput,
-					employee: employeeId,
+					otpRec: otpId,
 					sumbmitTimeStr: submitTimeStamp,
 				},
 				{ headers: { "Content-Type": "application/json" } },

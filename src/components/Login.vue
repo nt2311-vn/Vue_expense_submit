@@ -7,7 +7,7 @@ import OTPInput from "@/components/OTPInput.vue";
 
 const email = ref("");
 const otpRequested = ref(false);
-const employee = ref(null);
+const otpRec = ref(null);
 const inputMessage = ref("");
 const errorMsg = ref("");
 
@@ -16,19 +16,19 @@ const { requestOTP, validateOTP, error, loading, inputError } = useAuth();
 const getOTP = async () => {
   if (email.value && !otpRequested.value) {
     const otpResult = await requestOTP(email.value);
-    const { message, employeeId } = otpResult;
+    const { message, otpId } = otpResult;
 
     otpRequested.value = true;
-    employee.value = employeeId;
+    otpRec.value = otpId;
     inputMessage.value = message;
   }
 };
 
-const handleOTPComplete = async (otp) => {
-  if (otp) {
+const handleOTPComplete = async (otpInput) => {
+  if (otpInput) {
     const isVerified = await validateOTP(
-      otp,
-      employee.value,
+      otpInput,
+      otpRec.value,
       new Date().toISOString(),
     );
 

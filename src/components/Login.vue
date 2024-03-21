@@ -1,10 +1,12 @@
 <script setup>
 import { ref } from "vue";
 import useAuth from "@/composables/useAuth";
+import { useRouter } from "vue-router";
 import Loading from "@/components/Loading.vue";
 import Unauthorized from "@/components/Unauthorized.vue";
 import OTPInput from "@/components/OTPInput.vue";
 
+const router = useRouter();
 const email = ref("");
 const otpRequested = ref(false);
 const otpRec = ref(null);
@@ -33,7 +35,7 @@ const handleOTPComplete = async (otpInput) => {
     );
 
     if (isVerified) {
-      // TODO: redirect to dashboard
+      router.push({ name: "home" });
     } else {
       errorMsg.value = inputError;
     }

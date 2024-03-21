@@ -68,14 +68,13 @@ const checkOTPComplete = () => {
 }
 
 .error-message {
-  color: #ff4757;
-  background-color: #fff3f2;
-  border-left: 5px solid #ff4757;
+  color: #721c24;
+  background-color: #f8d7da;
   padding: 10px;
   margin-bottom: 10px;
+  border-left: 5px solid #f5c6cb;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out;
   text-align: center;
   font-size: 0.9rem;
 }

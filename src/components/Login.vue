@@ -34,8 +34,13 @@ const handleOTPComplete = async (otpInput) => {
       new Date().toISOString(),
     );
 
+    console.log(`Verified result: ${isVerified}`);
+
     if (isVerified) {
-      router.push({ name: "home" });
+      console.log("Redirecting to home...");
+      router.push({ name: "home" }).catch((err) => {
+        console.log(err);
+      });
     } else {
       errorMsg.value = inputError;
     }

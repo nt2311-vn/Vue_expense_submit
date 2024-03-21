@@ -69,8 +69,13 @@ const useAuth = () => {
 			if (response.data.success) {
 				return true;
 			}
+
+			if (response.data.error) {
+				inputError.value = response.data.error;
+				return false;
+			}
 		} catch (err) {
-			inputError.value = err.message;
+			inputError.value = err;
 		} finally {
 			loading.value = false;
 		}

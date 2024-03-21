@@ -73,7 +73,7 @@ const handleOTPComplete = async (otpInput) => {
               type="email"
               autocomplete="email"
               required
-              class="w-full px-4 py-2 text-gray-900 rounded-md focus:ring-blue-500 font-mono font-normal"
+              class="w-full px-4 py-2 text-gray-900 rounded-md focus:ring-blue-500 font-mono font-normal text-center"
               placeholder="Enter your email address here"
             />
 

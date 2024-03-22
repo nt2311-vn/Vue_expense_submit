@@ -1,8 +1,13 @@
 <script setup>
 const emit = defineEmits(["navigate"]);
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const navigateToExpForm = () => {
-  emit("navigate", "expenseForm");
+  router.push({ name: "expense-form" }).catch((err) => {
+    console.log(err);
+  });
 };
 </script>
 
@@ -25,7 +30,10 @@ const navigateToExpForm = () => {
           <a href="#" class="hover:text-blue-400 transition duration-300"
             >Home</a
           >
-          <a href="#" class="hover:text-blue-400 transition duration-300"
+          <a
+            href="#"
+            class="hover:text-blue-400 transition duration-300"
+            @click="navigateToExpForm"
             >Submit Expense Form</a
           >
           <a
@@ -37,17 +45,13 @@ const navigateToExpForm = () => {
       </div>
     </nav>
 
-    <!-- Main Content -->
     <section
       class="flex items-center justify-center h-full p-10 bg-gradient-to-br from-indigo-900 to-purple-900"
     >
       <div class="text-center">
-        <h1 class="text-5xl font-bold mb-4">
-          Welcome to the Expense Management System
-        </h1>
+        <h1 class="text-5xl font-bold mb-4">Expense Management Form</h1>
         <p class="max-w-2xl text-lg mx-auto">
-          This is a simple expense management system that allows you to submit
-          your expenses for approval with ease.
+          Start submitting your expense by choosing the sumbit page
         </p>
       </div>
     </section>

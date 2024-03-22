@@ -1,13 +1,8 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import getDepartment from "@/composables/getDepartment.js";
 import Loading from "@/components/Loading.vue";
 
-const { departments, error, loading, fetchDepartment } = getDepartment();
-
 const expenseDate = ref(null);
-const department = ref("");
-onMounted(fetchDepartment);
 
 const submitForm = () => {
   console.log({ expenseDate: expenseDate.value, department: department.value });

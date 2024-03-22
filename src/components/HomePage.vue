@@ -5,7 +5,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 const navigateToExpForm = () => {
-  router.push({ name: "expense-form" }).catch((err) => {
+  router.push({ name: "expenses-form" }).catch((err) => {
     console.log(err);
   });
 };

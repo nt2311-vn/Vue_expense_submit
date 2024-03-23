@@ -1,6 +1,7 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import useAuth from "@/composables/useAuth";
+import devAuth from "@/composables/devAuth";
 import { useRouter } from "vue-router";
 import Loading from "@/components/Loading.vue";
 import Unauthorized from "@/components/Unauthorized.vue";
@@ -14,6 +15,15 @@ const inputMessage = ref("");
 const errorMsg = ref("");
 
 const { requestOTP, validateOTP, error, loading, inputError } = useAuth();
+const { isDevAuth } = devAuth();
+
+onMounted(() => {
+  if (isDevAuth() && import.meta.env.DEV) {
+    router.push({ name: "home" }).catch((err) => {
+      console.log(err);
+    });
+  }
+});
 
 const getOTP = async () => {
   if (email.value && !otpRequested.value) {

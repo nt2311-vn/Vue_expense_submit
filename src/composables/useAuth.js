@@ -7,6 +7,7 @@ import axios from "axios";
  * @property {string} error - The error message
  * @property {boolean} loading - The loading state
  * @property {function} requestOTP - The requestOTP function
+ * @property {function} validateOTP - The validateOTP function
  * @returns {otpResult} - The object contains error, loading and requestOTP closure
  */
 const useAuth = () => {

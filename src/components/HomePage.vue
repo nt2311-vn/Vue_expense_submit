@@ -13,10 +13,8 @@ const navigateToExpForm = () => {
 
 <template>
   <div class="min-h-screen text-gray-100">
-    <!-- Navigation Bar -->
     <nav class="bg-gradient-to-r from-gray-900 to-gray-800 px-4 py-4 shadow-md">
       <div class="container mx-auto flex items-center justify-between">
-        <!-- Logo and Title -->
         <div class="flex items-center space-x-4">
           <img
             class="h-10 w-auto"
@@ -25,7 +23,6 @@ const navigateToExpForm = () => {
           />
           <span class="text-xl font-bold">Company</span>
         </div>
-        <!-- Navigation Links -->
         <div class="flex items-center space-x-6">
           <a href="#" class="hover:text-blue-400 transition duration-300"
             >Home</a
